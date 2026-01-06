@@ -1,0 +1,81 @@
+[gd_scene load_steps=13 format=3 uid="uid://c3hkse46q3kyj"]
+
+[ext_resource type="Script" uid="uid://ypetvvw3ia6e" path="res://src/assets/panel.gd" id="1_pqmgh"]
+[ext_resource type="PackedScene" uid="uid://f4v1v0o81op4" path="res://src/utility/interactable.tscn" id="2_tm3xh"]
+[ext_resource type="PackedScene" uid="uid://cd4682f5x7cop" path="res://src/utility/communication/plc_tag.tscn" id="3_w8x63"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_akft7"]
+size = Vector3(0.2, 0.6, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1hqvy"]
+size = Vector3(0.2, 0.6, 0.4)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_w8f5i"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tm3xh"]
+size = Vector3(0.07476807, 0.07940674, 0.078826904)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w8x63"]
+albedo_color = Color(0.18863487, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_0m2u4"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0ni23"]
+size = Vector3(0.06807324, 0.07976758, 0.08067725)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ovvnk"]
+albedo_color = Color(1, 0, 0.030401707, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_w7xoj"]
+radius = 0.05
+height = 0.1
+
+[node name="Panel" type="StaticBody3D"]
+script = ExtResource("1_pqmgh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_akft7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_1hqvy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7732741, 0)
+mesh = SubResource("CylinderMesh_w8f5i")
+
+[node name="StartButton" parent="." instance=ExtResource("2_tm3xh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.063867785, 0.2010063, -0.08675408)
+
+[node name="CollisionShape3D" parent="StartButton" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0154113695, 0.0010070801, -0.001449585)
+shape = SubResource("BoxShape3D_tm3xh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StartButton"]
+material_override = SubResource("StandardMaterial3D_w8x63")
+mesh = SubResource("SphereMesh_0m2u4")
+
+[node name="PLCTag" parent="StartButton" instance=ExtResource("3_w8x63")]
+dataType = false
+
+[node name="StopButton" parent="." instance=ExtResource("2_tm3xh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06787172, 0.19895452, 0.064985156)
+
+[node name="CollisionShape3D" parent="StopButton" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.018209472, 0.0022861362, -0.0013981909)
+shape = SubResource("BoxShape3D_0ni23")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StopButton"]
+material_override = SubResource("StandardMaterial3D_ovvnk")
+mesh = SubResource("SphereMesh_w7xoj")
+
+[node name="PLCTag" parent="StopButton" instance=ExtResource("3_w8x63")]
+dataType = false
+bit = 1
+
+[editable path="StartButton"]
+[editable path="StopButton"]

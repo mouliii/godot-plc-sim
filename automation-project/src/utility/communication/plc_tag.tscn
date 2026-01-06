@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cd4682f5x7cop"]
+
+[ext_resource type="Script" uid="uid://p852q2l1b4ea" path="res://src/utility/communication/plc_tag.gd" id="1_focbe"]
+
+[node name="PLCTag" type="Node"]
+script = ExtResource("1_focbe")
