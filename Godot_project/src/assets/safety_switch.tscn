@@ -1,0 +1,114 @@
+[gd_scene load_steps=16 format=3 uid="uid://c6kogfajfqaov"]
+
+[ext_resource type="Script" uid="uid://boit7q0xll080" path="res://src/assets/safety_switch.gd" id="1_hym16"]
+[ext_resource type="PackedScene" uid="uid://f4v1v0o81op4" path="res://src/utility/interactable.tscn" id="2_14kl8"]
+[ext_resource type="PackedScene" uid="uid://cd4682f5x7cop" path="res://src/utility/communication/plc_tag.tscn" id="3_14kl8"]
+[ext_resource type="Script" uid="uid://dw6w7g2fkwnh3" path="res://src/utility/communication/tag_data.gd" id="4_k5tmd"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_86qct"]
+size = Vector3(0.375, 0.62, 0.325)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_865t5"]
+albedo_color = Color(1, 0, 0.006772518, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ngft0"]
+size = Vector3(0.24, 0.265, 0.36)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v4dqn"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_l5130"]
+size = Vector3(0.05, 0.195, 0.165)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eqdu7"]
+size = Vector3(0.25976563, 0.2894287, 0.22241211)
+
+[sub_resource type="Resource" id="Resource_uhisw"]
+resource_local_to_scene = true
+script = ExtResource("4_k5tmd")
+value = null
+metadata/_custom_type_script = "uid://dw6w7g2fkwnh3"
+
+[sub_resource type="Animation" id="Animation_uhisw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D/MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_k5tmd"]
+resource_name = "TurnOff"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D/MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -1.5707964)]
+}
+
+[sub_resource type="Animation" id="Animation_14kl8"]
+resource_name = "TurnOn"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D/MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -1.5707964), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_apgnk"]
+_data = {
+&"RESET": SubResource("Animation_uhisw"),
+&"TurnOff": SubResource("Animation_k5tmd"),
+&"TurnOn": SubResource("Animation_14kl8")
+}
+
+[node name="SafetySwitch" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_86qct")
+script = ExtResource("1_hym16")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.09667671, 0.01380083)
+material_override = SubResource("StandardMaterial3D_865t5")
+mesh = SubResource("BoxMesh_ngft0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.12514675)
+material_override = SubResource("StandardMaterial3D_v4dqn")
+mesh = SubResource("BoxMesh_l5130")
+
+[node name="Interactable" parent="." instance=ExtResource("2_14kl8")]
+
+[node name="CollisionShape3D" parent="Interactable" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.097351074, 0.12854004)
+shape = SubResource("BoxShape3D_eqdu7")
+
+[node name="PLCTag" parent="." instance=ExtResource("3_14kl8")]
+tagData = SubResource("Resource_uhisw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_apgnk")
+}
+
+[editable path="Interactable"]

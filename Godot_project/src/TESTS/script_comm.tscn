@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bki688w5u3cot"]
+
+[ext_resource type="Script" uid="uid://cycutc40h5tr" path="res://src/TESTS/script_comm.gd" id="1_uukxq"]
+[ext_resource type="Script" uid="uid://bjf6u1dmpfcgx" path="res://src/TESTS/script_commcs.cs" id="2_oheve"]
+
+[node name="ScriptComm" type="Node"]
+script = ExtResource("1_uukxq")
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("2_oheve")

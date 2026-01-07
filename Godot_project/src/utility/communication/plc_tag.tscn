@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://cd4682f5x7cop"]
+
+[ext_resource type="Script" uid="uid://p852q2l1b4ea" path="res://src/utility/communication/plc_tag.gd" id="1_focbe"]
+[ext_resource type="Script" uid="uid://dw6w7g2fkwnh3" path="res://src/utility/communication/tag_data.gd" id="2_puk6x"]
+
+[sub_resource type="Resource" id="Resource_d6wl2"]
+resource_local_to_scene = true
+script = ExtResource("2_puk6x")
+value = null
+metadata/_custom_type_script = "uid://dw6w7g2fkwnh3"
+
+[node name="PLCTag" type="Node"]
+script = ExtResource("1_focbe")
+tagData = SubResource("Resource_d6wl2")

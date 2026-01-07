@@ -1,0 +1,17 @@
+{
+  "DATA_TYPES": {
+	"BOOL": { "ID": 0, "SIZE": 1 },
+	"INT":  { "ID": 1, "SIZE": 2 },
+	"WORD": { "ID": 2, "SIZE": 2 },
+	"REAL": { "ID": 3, "SIZE": 4 },
+	"STRING": { "ID": 4, "SIZE": 254 }
+  },
+  "MEM_AREAS": {
+	"PE": 129,
+	"PA": 130,
+	"MK": 131,
+	"DB": 132,
+	"CT": 28,
+	"TM": 29
+  }
+}

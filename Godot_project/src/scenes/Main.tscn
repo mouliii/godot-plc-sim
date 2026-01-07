@@ -1,0 +1,202 @@
+[gd_scene load_steps=26 format=3 uid="uid://dp0qpxxpxofwy"]
+
+[ext_resource type="Script" uid="uid://c8165t2gmcg71" path="res://src/scenes/main.gd" id="1_x4os5"]
+[ext_resource type="PackedScene" uid="uid://bjbghmriww2nq" path="res://src/utility/communication/S7Wrapper.tscn" id="2_8oy5r"]
+[ext_resource type="Texture2D" uid="uid://v7jp10vttvaa" path="res://icon.svg" id="3_akft7"]
+[ext_resource type="PackedScene" uid="uid://tdu1j3vh5f2s" path="res://src/scenes/player.tscn" id="4_1hqvy"]
+[ext_resource type="PackedScene" uid="uid://yuhu5j8qr6jp" path="res://src/assets/conveyor.tscn" id="4_ovvnk"]
+[ext_resource type="PackedScene" uid="uid://jvcga1w45fq7" path="res://src/assets/box.tscn" id="4_w8f5i"]
+[ext_resource type="Script" uid="uid://dw6w7g2fkwnh3" path="res://src/utility/communication/tag_data.gd" id="5_0ni23"]
+[ext_resource type="PackedScene" uid="uid://c3hkse46q3kyj" path="res://src/assets/panel.tscn" id="5_w7xoj"]
+[ext_resource type="PackedScene" uid="uid://b561w08yjmd1m" path="res://src/assets/sensor.tscn" id="6_0ni23"]
+[ext_resource type="PackedScene" uid="uid://c6kogfajfqaov" path="res://src/assets/safety_switch.tscn" id="7_a05fg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1hqvy"]
+albedo_texture = ExtResource("3_akft7")
+uv1_scale = Vector3(50, 50, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_w8f5i"]
+size = Vector3(20, 0.095, 20)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_akft7"]
+data = PackedVector3Array(-10, 0.0475, 10, 10, 0.0475, 10, -10, -0.0475, 10, 10, 0.0475, 10, 10, -0.0475, 10, -10, -0.0475, 10, 10, 0.0475, -10, -10, 0.0475, -10, 10, -0.0475, -10, -10, 0.0475, -10, -10, -0.0475, -10, 10, -0.0475, -10, 10, 0.0475, 10, 10, 0.0475, -10, 10, -0.0475, 10, 10, 0.0475, -10, 10, -0.0475, -10, 10, -0.0475, 10, -10, 0.0475, -10, -10, 0.0475, 10, -10, -0.0475, -10, -10, 0.0475, 10, -10, -0.0475, 10, -10, -0.0475, -10, 10, 0.0475, 10, -10, 0.0475, 10, 10, 0.0475, -10, -10, 0.0475, 10, -10, 0.0475, -10, 10, 0.0475, -10, -10, -0.0475, 10, 10, -0.0475, 10, -10, -0.0475, -10, 10, -0.0475, 10, 10, -0.0475, -10, -10, -0.0475, -10)
+
+[sub_resource type="Resource" id="Resource_865t5"]
+script = ExtResource("5_0ni23")
+memoryArea = 130
+value = null
+metadata/_custom_type_script = "uid://dw6w7g2fkwnh3"
+
+[sub_resource type="Resource" id="Resource_0p52v"]
+resource_local_to_scene = true
+script = ExtResource("5_0ni23")
+memoryArea = 130
+value = null
+metadata/_custom_type_script = "uid://dw6w7g2fkwnh3"
+
+[sub_resource type="Resource" id="Resource_w7xoj"]
+resource_local_to_scene = true
+script = ExtResource("5_0ni23")
+memoryArea = 131
+value = null
+offset = 10
+metadata/_custom_type_script = "uid://dw6w7g2fkwnh3"
+
+[sub_resource type="Resource" id="Resource_a05fg"]
+script = ExtResource("5_0ni23")
+memoryArea = 131
+value = null
+offset = 10
+bit = 1
+metadata/_custom_type_script = "uid://dw6w7g2fkwnh3"
+
+[sub_resource type="Resource" id="Resource_86qct"]
+script = ExtResource("5_0ni23")
+memoryArea = 131
+value = null
+offset = 10
+bit = 2
+metadata/_custom_type_script = "uid://dw6w7g2fkwnh3"
+
+[sub_resource type="Resource" id="Resource_0ni23"]
+script = ExtResource("5_0ni23")
+memoryArea = 131
+value = null
+offset = 10
+bit = 4
+metadata/_custom_type_script = "uid://dw6w7g2fkwnh3"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ovvnk"]
+size = Vector3(4.277893, 0.7305908, 6.8690796)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w7xoj"]
+size = Vector3(1.0454102, 1.6533203, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0ni23"]
+size = Vector3(60, 1, 60)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_akft7"]
+
+[sub_resource type="Sky" id="Sky_1hqvy"]
+sky_material = SubResource("ProceduralSkyMaterial_akft7")
+
+[sub_resource type="Environment" id="Environment_w8f5i"]
+background_mode = 2
+sky = SubResource("Sky_1hqvy")
+ambient_light_sky_contribution = 0.2
+tonemap_mode = 2
+
+[node name="Main" type="Node"]
+script = ExtResource("1_x4os5")
+
+[node name="S7Wrapper" parent="." instance=ExtResource("2_8oy5r")]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="World" type="Node" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="World"]
+
+[node name="Mesh" type="MeshInstance3D" parent="World/Floor"]
+material_override = SubResource("StandardMaterial3D_1hqvy")
+mesh = SubResource("BoxMesh_w8f5i")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Floor"]
+shape = SubResource("ConcavePolygonShape3D_akft7")
+
+[node name="Conveyor" parent="World" instance=ExtResource("4_ovvnk")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.14786243, 0, -0.17785275)
+beltSpeed = 5.0
+tagData = SubResource("Resource_865t5")
+
+[node name="PLCTag" parent="World/Conveyor" index="2"]
+tagData = SubResource("Resource_0p52v")
+
+[node name="Panel" parent="World" instance=ExtResource("5_w7xoj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1400212, 2.5932431)
+
+[node name="PLCTag" parent="World/Panel/StartButton" index="2"]
+tagData = SubResource("Resource_w7xoj")
+
+[node name="PLCTag" parent="World/Panel/StopButton" index="2"]
+tagData = SubResource("Resource_a05fg")
+
+[node name="Sensor" parent="World" instance=ExtResource("6_0ni23")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6507099, 1.2156494, 0.4875021)
+
+[node name="PLCTag" parent="World/Sensor" index="1"]
+tagData = SubResource("Resource_86qct")
+
+[node name="SafetySwitch" parent="World" instance=ExtResource("7_a05fg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4525886, 0.44149685, 0.26251233)
+
+[node name="PLCTag" parent="World/SafetySwitch" index="2"]
+tagData = SubResource("Resource_0ni23")
+
+[node name="Box" parent="World" groups=["Products"] instance=ExtResource("4_w8f5i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.382947, 1.9764364, -0.2676618)
+
+[node name="Logic" type="Node" parent="."]
+
+[node name="BoxDespawner" type="Area3D" parent="Logic"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.868978, -0.27612722, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Logic/BoxDespawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.277648, -0.13470459, -0.22763062)
+shape = SubResource("BoxShape3D_ovvnk")
+
+[node name="BoxSpawner" type="Area3D" parent="Logic"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5086164, 1.9273267, -0.15740645)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Logic/BoxSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.022705078, 0.24072266, 0)
+shape = SubResource("BoxShape3D_w7xoj")
+
+[node name="PlayerCatcher" type="Area3D" parent="Logic"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.390427, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Logic/PlayerCatcher"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.084418, 0)
+shape = SubResource("BoxShape3D_0ni23")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_w8f5i")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 8.163636, 0)
+shadow_enabled = true
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("4_1hqvy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2954016, 1.1871219, 5.3214836)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = -2.5
+offset_right = 2.5
+offset_bottom = 2.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Logic/BoxDespawner" to="." method="_on_box_despawner_body_entered"]
+[connection signal="body_exited" from="Logic/BoxSpawner" to="." method="_on_box_spawner_body_exited"]
+[connection signal="body_entered" from="Logic/PlayerCatcher" to="." method="_on_area_3d_body_entered"]
+
+[editable path="World/Conveyor"]
+[editable path="World/Panel"]
+[editable path="World/Panel/StartButton"]
+[editable path="World/Panel/StopButton"]
+[editable path="World/Sensor"]
+[editable path="World/SafetySwitch"]
+[editable path="World/SafetySwitch/Interactable"]

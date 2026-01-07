@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjbghmriww2nq"]
+
+[ext_resource type="Script" uid="uid://d24n8fs232qqf" path="res://src/utility/communication/s_7_wrapper.gd" id="1_ae0k0"]
+
+[node name="S7Wrapper" type="Node"]
+script = ExtResource("1_ae0k0")
