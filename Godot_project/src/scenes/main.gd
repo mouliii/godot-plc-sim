@@ -21,7 +21,7 @@ func _on_timer_timeout() -> void:
 		get_tree().call_group("PLC_TAGS", "ReadNewData")
 
 func SpawnBox()->void:
-	var pos := Vector3(-3.4, 2.8, -0.23)
+	var pos := Vector3(-1.854,1.5,-0.125)
 	var b = load("res://src/assets/box.tscn")
 	var box = b.instantiate()
 	$World.add_child(box)
@@ -32,9 +32,9 @@ func _on_box_despawner_body_entered(body: Node3D) -> void:
 		body.queue_free()
 
 func _on_box_spawner_body_exited(_body: Node3D) -> void:
-	SpawnBox()
-
+	if $Logic/BoxSpawner.get_overlapping_bodies().size() == 0:
+		SpawnBox()
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body is Player:
-		body.global_position = Vector3(-2.295,1.187,5.321)
+		body.global_position = Vector3(-5.854,1.5,2.5125)

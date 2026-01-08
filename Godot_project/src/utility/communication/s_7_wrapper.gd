@@ -25,6 +25,8 @@ enum MEM_AREA
 # dictionary DATA_TYPE:size_value
 var dataSize:Dictionary
 
+const ANALOG_VALUE_MAX := 27648
+
 var sharp7:Node
 
 func _ready():

@@ -1,7 +1,6 @@
 extends StaticBody3D
 
 @export var beltSpeed:float
-@export var tagData:TagData
 @onready var tag := $PLCTag
 var beltDir := Vector3.ZERO
 var fod :ForceObjectData
@@ -16,7 +15,6 @@ func _ready() -> void:
 	fod.dataSetterID = get_instance_id()
 	fod.direction = beltDir
 	fod.speed = beltSpeed
-	tag.tagData = tagData
 
 func _process(_delta: float) -> void:
 	var readCached:bool = tag.Read()
