@@ -1,15 +1,14 @@
-[gd_scene load_steps=20 format=3 uid="uid://dp0qpxxpxofwy"]
+[gd_scene load_steps=19 format=3 uid="uid://dp0qpxxpxofwy"]
 
 [ext_resource type="Script" uid="uid://c8165t2gmcg71" path="res://src/scenes/main.gd" id="1_x4os5"]
 [ext_resource type="PackedScene" uid="uid://bjbghmriww2nq" path="res://src/utility/communication/S7Wrapper.tscn" id="2_8oy5r"]
 [ext_resource type="Texture2D" uid="uid://v7jp10vttvaa" path="res://icon.svg" id="3_akft7"]
 [ext_resource type="PackedScene" uid="uid://tdu1j3vh5f2s" path="res://src/scenes/player.tscn" id="4_1hqvy"]
-[ext_resource type="PackedScene" uid="uid://yuhu5j8qr6jp" path="res://src/assets/conveyor.tscn" id="4_ovvnk"]
-[ext_resource type="PackedScene" uid="uid://jvcga1w45fq7" path="res://src/assets/box.tscn" id="4_w8f5i"]
-[ext_resource type="PackedScene" uid="uid://c3hkse46q3kyj" path="res://src/assets/panel.tscn" id="5_w7xoj"]
-[ext_resource type="PackedScene" uid="uid://b561w08yjmd1m" path="res://src/assets/sensor.tscn" id="6_0ni23"]
-[ext_resource type="PackedScene" uid="uid://c6kogfajfqaov" path="res://src/assets/safety_switch.tscn" id="7_a05fg"]
-[ext_resource type="PackedScene" uid="uid://eh3fkvk20db4" path="res://src/assets/actuator_push.tscn" id="10_0ni23"]
+[ext_resource type="PackedScene" uid="uid://yuhu5j8qr6jp" path="res://src/premades/conveyor.tscn" id="4_ovvnk"]
+[ext_resource type="PackedScene" uid="uid://jvcga1w45fq7" path="res://src/premades/box.tscn" id="4_w8f5i"]
+[ext_resource type="PackedScene" uid="uid://c3hkse46q3kyj" path="res://src/premades/panel.tscn" id="5_w7xoj"]
+[ext_resource type="PackedScene" uid="uid://c6kogfajfqaov" path="res://src/premades/safety_switch.tscn" id="7_a05fg"]
+[ext_resource type="PackedScene" uid="uid://eh3fkvk20db4" path="res://src/premades/actuator_push.tscn" id="10_0ni23"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1hqvy"]
 albedo_texture = ExtResource("3_akft7")
@@ -32,12 +31,12 @@ size = Vector3(60, 1, 60)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_akft7"]
 
-[sub_resource type="Sky" id="Sky_1hqvy"]
+[sub_resource type="Sky" id="Sky_w7xoj"]
 sky_material = SubResource("ProceduralSkyMaterial_akft7")
 
 [sub_resource type="Environment" id="Environment_w8f5i"]
 background_mode = 2
-sky = SubResource("Sky_1hqvy")
+sky = SubResource("Sky_w7xoj")
 ambient_light_sky_contribution = 0.2
 tonemap_mode = 2
 
@@ -80,14 +79,6 @@ offset = 10
 memoryArea = 131
 offset = 10
 bit = 1
-
-[node name="Sensor" parent="World" instance=ExtResource("6_0ni23")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6909833, 1.2156494, 0.58257425)
-
-[node name="PLCTag" parent="World/Sensor" index="1"]
-memoryArea = 131
-offset = 10
-bit = 2
 
 [node name="SafetySwitch" parent="World" instance=ExtResource("7_a05fg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4525886, 0.44149685, 0.26251233)
@@ -137,22 +128,6 @@ shadow_enabled = true
 [node name="CharacterBody3D" parent="." instance=ExtResource("4_1hqvy")]
 transform = Transform3D(0.7509415, 0, -0.66036874, 0, 1, 0, 0.66036874, 0, 0.7509415, -5.501418, 1.1871219, 2.511504)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -2.5
-offset_top = -2.5
-offset_right = 2.5
-offset_bottom = 2.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -2.7006202, 3.5441744, 0)
 
@@ -166,7 +141,6 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -2.7
 [editable path="World/Panel/StartButton"]
 [editable path="World/Panel/StopButton"]
 [editable path="World/Panel/ActButton"]
-[editable path="World/Sensor"]
 [editable path="World/SafetySwitch"]
 [editable path="World/SafetySwitch/Interactable"]
 [editable path="World/Actuator"]

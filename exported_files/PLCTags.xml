@@ -1,0 +1,13 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<Tagtable name='Tagit'>
+  <!-- exported by 'Totally Integrated Automation Portal' version 1501.0.2801.1   © 2004-2016 Siemens AG - all rights reserved -->
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%M10.0'>start</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%M10.1'>stop</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%M10.2'>button3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%M10.3'>turvakytkin1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%M10.4'>turvakytkin2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%M10.5'>valokenno1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%M10.6'>valokenno2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q0.0'>kuljetin1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q0.1'>kuljetin2</Tag>
+</Tagtable>

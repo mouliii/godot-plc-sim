@@ -4,3 +4,9 @@
 
 [node name="S7Wrapper" type="Node"]
 script = ExtResource("1_ae0k0")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

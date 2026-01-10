@@ -17,6 +17,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		var mov = event.relative * mouseSens
 		rotate_y(-mov.x)
 		camPivot.rotate_x(-mov.y)
+	if Input.is_action_just_pressed("toggle_mouse"):
+		var mm = Input.mouse_mode
+		if mm == Input.MouseMode.MOUSE_MODE_VISIBLE:
+			Input.mouse_mode = Input.MouseMode.MOUSE_MODE_CAPTURED
+		else:
+			Input.mouse_mode = Input.MouseMode.MOUSE_MODE_VISIBLE
 
 func _physics_process(delta: float) -> void:
 	HandleInteraction()

@@ -38,6 +38,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5390806, -0.38997066)
 
 [node name="Camera3D" type="Camera3D" parent="CamPivot"]
 current = true
+fov = 100.0
 
 [node name="RayCast3D" type="RayCast3D" parent="CamPivot/Camera3D"]
 target_position = Vector3(0, 0, -1.5)

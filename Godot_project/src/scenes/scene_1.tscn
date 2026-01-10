@@ -1,0 +1,200 @@
+[gd_scene load_steps=18 format=3 uid="uid://cc5ge4ut10bag"]
+
+[ext_resource type="Texture2D" uid="uid://v7jp10vttvaa" path="res://icon.svg" id="1_n80il"]
+[ext_resource type="Script" uid="uid://dr8qy1fa0fiyn" path="res://src/scenes/scene_1.gd" id="1_yxvfj"]
+[ext_resource type="PackedScene" uid="uid://tdu1j3vh5f2s" path="res://src/scenes/player.tscn" id="2_12jqq"]
+[ext_resource type="PackedScene" uid="uid://yuhu5j8qr6jp" path="res://src/premades/conveyor.tscn" id="3_b45uy"]
+[ext_resource type="PackedScene" uid="uid://c3hkse46q3kyj" path="res://src/premades/panel.tscn" id="4_dqgyo"]
+[ext_resource type="PackedScene" uid="uid://c6kogfajfqaov" path="res://src/premades/safety_switch.tscn" id="5_dqgyo"]
+[ext_resource type="PackedScene" uid="uid://b561w08yjmd1m" path="res://src/premades/retroreflector_sensor.tscn" id="6_o0lal"]
+[ext_resource type="PackedScene" uid="uid://jvcga1w45fq7" path="res://src/premades/box.tscn" id="8_jo0hx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b45uy"]
+albedo_texture = ExtResource("1_n80il")
+uv1_scale = Vector3(2, 2, 2)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_dqgyo"]
+size = Vector3(30, 0.2, 50)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_n80il"]
+points = PackedVector3Array(14.999998, 0.1, 25, 14.999998, -0.1, 25, 14.999998, 0.1, -25, -15, 0.1, 25, -15, -0.1, 25, 14.999998, -0.1, -25, -15, 0.1, -25, -15, -0.1, -25)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o0lal"]
+
+[sub_resource type="Sky" id="Sky_1hqvy"]
+sky_material = SubResource("ProceduralSkyMaterial_o0lal")
+
+[sub_resource type="Environment" id="Environment_yxvfj"]
+background_mode = 2
+sky = SubResource("Sky_1hqvy")
+ambient_light_sky_contribution = 0.2
+tonemap_mode = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o0lal"]
+size = Vector3(1.0454102, 0.8227539, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yxvfj"]
+size = Vector3(119.600464, 1, 127.51807)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jo0hx"]
+size = Vector3(2.3077393, 1, 2.421875)
+
+[node name="Scene1" type="Node"]
+script = ExtResource("1_yxvfj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_b45uy")
+mesh = SubResource("BoxMesh_dqgyo")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+visible = false
+shape = SubResource("ConvexPolygonShape3D_n80il")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yxvfj")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 8.163636, 0)
+shadow_enabled = true
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("2_12jqq")]
+transform = Transform3D(0.7624538, 0, 0.6470427, 0, 1, 0, -0.6470427, 0, 0.7624538, 2.9668674, 1.1871219, 6.347205)
+
+[node name="Machines" type="Node" parent="."]
+
+[node name="Panel" parent="Machines" instance=ExtResource("4_dqgyo")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.8861408, 1.3562814, 6.1776977)
+
+[node name="PLCTag" parent="Machines/Panel/StartButton" index="2"]
+memoryArea = 131
+offset = 10
+
+[node name="PLCTag" parent="Machines/Panel/StopButton" index="2"]
+memoryArea = 131
+offset = 10
+bit = 1
+
+[node name="PLCTag" parent="Machines/Panel/ActButton" index="2"]
+offset = 10
+bit = 3
+
+[node name="Conveyor1" parent="Machines" instance=ExtResource("3_b45uy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.842493, 0, 3.2418537)
+
+[node name="PLCTag" parent="Machines/Conveyor1" index="2"]
+memoryArea = 130
+
+[node name="Conveyor2" parent="Machines" instance=ExtResource("3_b45uy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.842, -0.01, -1.777)
+
+[node name="PLCTag" parent="Machines/Conveyor2" index="2"]
+memoryArea = 130
+bit = 1
+
+[node name="SafetySwitch1" parent="Machines" instance=ExtResource("5_dqgyo")]
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -1.4067235, 0.4437154, 1.5660652)
+
+[node name="PLCTag" parent="Machines/SafetySwitch1" index="2"]
+memoryArea = 131
+offset = 10
+bit = 3
+
+[node name="SafetySwitch2" parent="Machines" instance=ExtResource("5_dqgyo")]
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -1.4067235, 0.4437154, -3.246775)
+
+[node name="PLCTag" parent="Machines/SafetySwitch2" index="2"]
+memoryArea = 131
+offset = 10
+bit = 4
+
+[node name="RetroreflectiveSensors1" parent="Machines" instance=ExtResource("6_o0lal")]
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -1.0868495, 1.1495885, 0.9446776)
+
+[node name="PLCTag" parent="Machines/RetroreflectiveSensors1" index="1"]
+memoryArea = 131
+offset = 10
+bit = 5
+
+[node name="Reflector" parent="Machines/RetroreflectiveSensors1" index="2"]
+transform = Transform3D(0.9999998, 0, -3.5527137e-15, 0, 1, 0, 3.5527137e-15, 0, 0.9999998, 0, 0, -1.3527782)
+
+[node name="RetroreflectiveSensors2" parent="Machines" instance=ExtResource("6_o0lal")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.0977645, 1.1461517, -4.1257243)
+
+[node name="PLCTag" parent="Machines/RetroreflectiveSensors2" index="1"]
+memoryArea = 131
+offset = 10
+bit = 6
+
+[node name="Reflector" parent="Machines/RetroreflectiveSensors2" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.3728042)
+
+[node name="Logic" type="Node" parent="."]
+
+[node name="BoxSpawner" type="Area3D" parent="Logic"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8265878, 2.0776355, 5.1662655)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Logic/BoxSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4152832, 0)
+shape = SubResource("BoxShape3D_o0lal")
+
+[node name="SpawnPos" type="Marker3D" parent="Logic/BoxSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5369849, 0)
+
+[node name="PlayerCatcher" type="Area3D" parent="Logic"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.390427, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Logic/PlayerCatcher"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19744873, -9.084419, -0.12719727)
+shape = SubResource("BoxShape3D_yxvfj")
+
+[node name="Marker3D" type="Marker3D" parent="Logic/PlayerCatcher"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9620113, 17.795616, 6.367161)
+
+[node name="BoxDespawner" type="Area3D" parent="Logic"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8106565, -0.2862267, -5.6702585)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Logic/BoxDespawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11480713, 0, -0.7109375)
+shape = SubResource("BoxShape3D_jo0hx")
+
+[node name="Boxes" type="Node" parent="."]
+
+[node name="Box" parent="Boxes" instance=ExtResource("8_jo0hx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8246071, 1.7683392, 5.184733)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = -2.5
+offset_right = 2.5
+offset_bottom = 2.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="body_exited" from="Logic/BoxSpawner" to="." method="_on_box_spawner_body_exited"]
+[connection signal="body_entered" from="Logic/PlayerCatcher" to="." method="_on_player_catcher_body_entered"]
+[connection signal="body_entered" from="Logic/BoxDespawner" to="." method="_on_box_despawner_body_entered"]
+
+[editable path="Machines/Panel"]
+[editable path="Machines/Panel/StartButton"]
+[editable path="Machines/Panel/StopButton"]
+[editable path="Machines/Panel/ActButton"]
+[editable path="Machines/Conveyor1"]
+[editable path="Machines/Conveyor2"]
+[editable path="Machines/SafetySwitch1"]
+[editable path="Machines/SafetySwitch1/Interactable"]
+[editable path="Machines/SafetySwitch2"]
+[editable path="Machines/SafetySwitch2/Interactable"]
+[editable path="Machines/RetroreflectiveSensors1"]
+[editable path="Machines/RetroreflectiveSensors2"]

@@ -1,6 +1,7 @@
 extends Node
 
 # https://snap7.sourceforge.net/sharp7.html
+var pollRate := 0.1
 
 # **** MAKE SURE THIS MATCHES WITH S7Comm.cs ****
 enum DATA_TYPE
@@ -18,8 +19,8 @@ enum MEM_AREA
 	OUTPUT = 0x82, 
 	M_MEM = 0x83,
 	DATA_BLOCK = 0x84, 
-	COUNTER = 0x1C, 
-	TIMER = 0x1D 
+	COUNTER_NYI = 0x1C, 
+	TIMER_NYI = 0x1D 
 };
 
 # dictionary DATA_TYPE:size_value
@@ -35,7 +36,7 @@ func _ready():
 	var sharp7cs = load("uid://cd2abx2w82ec3")
 	sharp7 = sharp7cs.new()
 	sharp7.CreateClient()
-	#var intval = sharp7.DBRead($PLCDataTypes.memoryAreas, 1, 0, 0)
+	$Timer.wait_time = pollRate
 
 func ConnectToPLC(ip:String,rack:int,slot:int) -> int:
 	var status = sharp7.ConnectToPLC(ip,rack,slot)
@@ -88,3 +89,7 @@ func WriteBool(db:int, offset:int, bit:int, value:bool)->void:
 func ReadBool(db:int, offset:int, bit:int) -> bool:
 	var i = sharp7.ReadBool(db,offset,bit)
 	return i;
+
+func _on_timer_timeout() -> void:
+	if IsConnected():
+		get_tree().call_group("PLC_TAGS", "ReadNewData")
